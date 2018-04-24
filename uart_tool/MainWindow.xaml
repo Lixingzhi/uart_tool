@@ -4,7 +4,7 @@
         Title="MainWindow" Height="500" Width="750"
         Background="#F0F0F0">
     <Grid>
-        <ListBox Background="Black" Height="335" HorizontalAlignment="Left" Name="listBox1" VerticalAlignment="Top" Width="528" />
+        <ListBox Background="Black" Height="335" HorizontalAlignment="Left" Name="listBox1" VerticalAlignment="Top" Width="528" Foreground="#FF16DB16" />
         <Label Content="串口选择" Height="28" HorizontalAlignment="Left" Margin="533,10,0,0" Name="label1" VerticalAlignment="Top" Width="71" />
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="533,44,0,0" Name="comboBox_uartlist" VerticalAlignment="Top" Width="183" DropDownOpened="comboBox_uartlist_DropDownOpened" DropDownClosed="comboBox_uartlist_DropDownClosed" />
         <Label Content="波特率" Height="28" HorizontalAlignment="Left" Margin="533,73,0,0" Name="label2" VerticalAlignment="Top" Width="71" />

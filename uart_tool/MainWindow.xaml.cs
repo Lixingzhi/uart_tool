@@ -28,6 +28,7 @@ namespace uart_tool
         public string current_checkbits;
         public static bool uart_open = false;
         public static SerialPort com = null;
+        public string datastring;
 
         public MainWindow()
         {
@@ -111,12 +112,22 @@ namespace uart_tool
                         break;
 
                 }
-                
 
-                com.Open();
-                uart_open = true;
+                try
+                {
+                    
+                    uart_open = true;
+                    com.DataReceived += new SerialDataReceivedEventHandler(com_DataReceived);
+                    com.ReceivedBytesThreshold = 1;
+                    com.Open();
 
-                button_uartopen.Foreground = Brushes.Red;
+                    button_uartopen.Foreground = Brushes.Red;
+                }
+                catch (Exception e1)
+                {
+                    MessageBox.Show("打开串口错误");
+                }
+
             }
             else 
             {
@@ -125,6 +136,35 @@ namespace uart_tool
 
                 button_uartopen.Foreground = Brushes.Black;
             }
+        }
+
+        
+
+        void com_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            //throw new NotImplementedException();
+            SerialPort sp = (SerialPort)sender;
+            int n = sp.BytesToRead;
+
+            int count = com.BytesToRead;
+            if (count <= 0)
+                return;
+            byte[] databuffer = new byte[count];
+            com.Read(databuffer, 0, count);
+            datastring = System.Text.Encoding.Default.GetString(databuffer);
+
+            //线程安全，否则无法修改listbox1
+            this.listBox1.Dispatcher.Invoke(
+                new Action(
+                    delegate
+                    {
+                        listBox1.Items.Add(datastring);
+                        //需要通过可视树找到listbox里面的那个ScrollViewer，然后通过ScrollToEnd滚动到最后
+                        Decorator decorator = (Decorator)VisualTreeHelper.GetChild(listBox1, 0);
+                        ScrollViewer scrollViewer = (ScrollViewer)decorator.Child;
+                        scrollViewer.ScrollToEnd();
+
+                    }));
         }
 
         private void comboBox_databits_DropDownClosed(object sender, EventArgs e)
