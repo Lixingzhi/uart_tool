@@ -186,5 +186,19 @@ namespace uart_tool
         {
             current_bound = comboBox_bound.Text;
         }
+
+        private void button_Send_Click(object sender, RoutedEventArgs e)
+        {
+            byte[] buffer = System.Text.Encoding.Default.GetBytes(textBox_Send.Text);
+
+            if (true == uart_open)
+            {
+                com.Write(buffer, 0, buffer.Length);
+            }
+            else {
+                MessageBox.Show("请打开串口");
+            }
+            
+        }
     }
 }

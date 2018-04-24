@@ -49,5 +49,7 @@
             <ComboBoxItem Content="偶校验" />
         </ComboBox>
         <Button Content="打开串口" Height="23" HorizontalAlignment="Left" Margin="597,214,0,0" Name="button_uartopen" VerticalAlignment="Top" Width="119" Click="button_uartopen_Click" />
+        <TextBox AcceptsReturn="True"  TextWrapping="Wrap" Height="94" HorizontalAlignment="Right" Margin="0,355,437,0" Name="textBox_Send" VerticalAlignment="Top" Width="291" />
+        <Button Content="发送" Height="23" HorizontalAlignment="Left" Margin="365,392,0,0" Name="button_Send" VerticalAlignment="Top" Width="75" Click="button_Send_Click" />
     </Grid>
 </Window>
