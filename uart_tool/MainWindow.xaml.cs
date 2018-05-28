@@ -154,13 +154,14 @@ namespace uart_tool
             datastring = System.Text.Encoding.Default.GetString(databuffer);
 
             //线程安全，否则无法修改listbox1
-            this.listBox1.Dispatcher.Invoke(
+            this.TextBox1.Dispatcher.Invoke(
                 new Action(
                     delegate
                     {
-                        listBox1.Items.Add(datastring);
+                        //listBox1.Items.Add(datastring);
+                        TextBox1.AppendText(datastring);
                         //需要通过可视树找到listbox里面的那个ScrollViewer，然后通过ScrollToEnd滚动到最后
-                        Decorator decorator = (Decorator)VisualTreeHelper.GetChild(listBox1, 0);
+                        Decorator decorator = (Decorator)VisualTreeHelper.GetChild(TextBox1, 0);
                         ScrollViewer scrollViewer = (ScrollViewer)decorator.Child;
                         scrollViewer.ScrollToEnd();
 
@@ -199,6 +200,12 @@ namespace uart_tool
                 MessageBox.Show("请打开串口");
             }
             
+        }
+
+        private void TextBox1_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+        	// 在此处添加事件处理程序实现。
+            ScrollViewer1.ScrollToEnd();
         }
     }
 }
