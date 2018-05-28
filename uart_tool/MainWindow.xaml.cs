@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using System.IO.Ports;
+using Microsoft.Win32;
+using System.IO;
 
 namespace uart_tool
 {
@@ -29,6 +31,8 @@ namespace uart_tool
         public static bool uart_open = false;
         public static SerialPort com = null;
         public string datastring;
+
+        public bool timestramp = false;
 
         public MainWindow()
         {
@@ -153,18 +157,43 @@ namespace uart_tool
             com.Read(databuffer, 0, count);
             datastring = System.Text.Encoding.Default.GetString(databuffer);
 
-            //线程安全，否则无法修改listbox1
+            //线程安全，否则无法修改TexttBox1
             this.TextBox1.Dispatcher.Invoke(
                 new Action(
                     delegate
                     {
                         //listBox1.Items.Add(datastring);
-                        TextBox1.AppendText(datastring);
+                        if ((bool)button_hexshow.IsChecked)
+                        {
+                            char[] values = datastring.ToCharArray();
+                            foreach (char letter in values)
+                            {
+                                int value = Convert.ToInt32(letter);
+                                TextBox1.AppendText(String.Format(" {0:X}", value));
+                            }
+                        }
+                        else 
+                        {
+                            TextBox1.AppendText(datastring);
+                        }
+
+                        if (timestramp)
+                        {
+                            TextBox1.AppendText("[");
+                            TextBox1.AppendText(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff"));
+                            TextBox1.AppendText("]");
+                            TextBox1.AppendText("\r\n");
+                        }
+                        else
+                        { 
+                        
+                        }
+
+                        //TextBox1.AppendText(datastring);
                         //需要通过可视树找到listbox里面的那个ScrollViewer，然后通过ScrollToEnd滚动到最后
                         Decorator decorator = (Decorator)VisualTreeHelper.GetChild(TextBox1, 0);
                         ScrollViewer scrollViewer = (ScrollViewer)decorator.Child;
                         scrollViewer.ScrollToEnd();
-
                     }));
         }
 
@@ -206,6 +235,52 @@ namespace uart_tool
         {
         	// 在此处添加事件处理程序实现。
             ScrollViewer1.ScrollToEnd();
+        }
+
+        private void button_cleanreceive_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	// 在此处添加事件处理程序实现。
+            TextBox1.Clear();
+        }
+
+        private void button_save_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	// 在此处添加事件处理程序实现。
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = " txt files(*.txt)|*.txt|All files(*.*)|*.*";
+
+            save.ShowDialog();
+
+            StreamWriter sw = new StreamWriter(save.FileName);
+            sw.Write(TextBox1.Text);
+            sw.Close();
+        }
+
+        private void button_changebackgroud_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	// 在此处添加事件处理程序实现。
+            TextBox1.Foreground = Brushes.Black;
+            TextBox1.Background = Brushes.White;
+
+        }
+
+        private void button_changebackgroud_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	// 在此处添加事件处理程序实现。
+            TextBox1.Foreground = Brushes.LightGreen;
+            TextBox1.Background = Brushes.Black;
+        }
+
+        private void button_timestamp_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	// 在此处添加事件处理程序实现。
+            timestramp = false;
+        }
+
+        private void button_timestamp_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	// 在此处添加事件处理程序实现。
+            timestramp = true;
         }
     }
 }

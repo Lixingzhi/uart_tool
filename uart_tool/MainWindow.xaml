@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="500" Width="750"
         Background="#F0F0F0">
+
     <Grid>
         <Label Content="串口选择" Height="28" HorizontalAlignment="Left" Margin="533,10,0,0" Name="label1" VerticalAlignment="Top" Width="71" />
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="533,44,0,0" Name="comboBox_uartlist" VerticalAlignment="Top" Width="183" DropDownOpened="comboBox_uartlist_DropDownOpened" DropDownClosed="comboBox_uartlist_DropDownClosed" />
@@ -42,16 +43,24 @@
             <ComboBoxItem Content="6" />
             <ComboBoxItem Content="5" />
         </ComboBox>
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="597,180,0,0" Name="comboBox_check" VerticalAlignment="Top" Width="119" DropDownClosed="comboBox_check_DropDownClosed">
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="597,175,0,0" Name="comboBox_check" VerticalAlignment="Top" Width="119" DropDownClosed="comboBox_check_DropDownClosed">
             <ComboBoxItem Content="无" />
             <ComboBoxItem Content="奇校验" />
             <ComboBoxItem Content="偶校验" />
         </ComboBox>
-        <Button Content="打开串口" Height="23" HorizontalAlignment="Left" Margin="597,214,0,0" Name="button_uartopen" VerticalAlignment="Top" Width="119" Click="button_uartopen_Click" />
+        <Button Content="打开串口" Height="23" HorizontalAlignment="Left" Margin="597,210.418,0,0" Name="button_uartopen" VerticalAlignment="Top" Width="119" Click="button_uartopen_Click" />
         <TextBox AcceptsReturn="True"  TextWrapping="Wrap" Height="94" HorizontalAlignment="Right" Margin="0,355,437,0" Name="textBox_Send" VerticalAlignment="Top" Width="291" />
         <Button Content="发送" Height="23" HorizontalAlignment="Left" Margin="365,392,0,0" Name="button_Send" VerticalAlignment="Top" Width="75" Click="button_Send_Click" />
         <ScrollViewer x:Name="ScrollViewer1" Margin="0,0,216,125">
-        	<TextBox x:Name="TextBox1" TextWrapping="Wrap" IsReadOnly="True" TextChanged="TextBox1_TextChanged"/>
+            <TextBox x:Name="TextBox1" TextWrapping="Wrap" IsReadOnly="True" TextChanged="TextBox1_TextChanged" Background="Black" Foreground="LightGreen">
+        	</TextBox>
         </ScrollViewer>
+        <Button x:Name="button_save" Content="保存窗口" HorizontalAlignment="Right" Margin="0,0,126,191.163" VerticalAlignment="Bottom" Width="75" Click="button_save_Click"/>
+        <Button x:Name="button_cleanreceive" Content="清除接收" HorizontalAlignment="Right" Margin="0,0,18,191.163" VerticalAlignment="Bottom" Width="75" Click="button_cleanreceive_Click" RenderTransformOrigin="0.48,-0.321"/>
+        <CheckBox x:Name="button_hexshow" Content="16进制显示" HorizontalAlignment="Right" Margin="0,0,126,171.326" VerticalAlignment="Bottom"/>
+        <CheckBox x:Name="button_rts" Content="RTS" HorizontalAlignment="Right" Margin="0,0,166.433,151.489" VerticalAlignment="Bottom"/>
+        <CheckBox x:Name="button_timestamp" Content="时间戳(以换行回车断帧)" HorizontalAlignment="Right" Margin="0,0,60.059,131.652" VerticalAlignment="Bottom" Unchecked="button_timestamp_Unchecked" Checked="button_timestamp_Checked"/>
+        <CheckBox x:Name="button_changebackgroud" Content="白底黑字" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,19.98,171.326" Checked="button_changebackgroud_Checked" Unchecked="button_changebackgroud_Unchecked"/>
+        <CheckBox x:Name="button_dtr" Content="DTR" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,44.126,151.489"/>
     </Grid>
 </Window>
