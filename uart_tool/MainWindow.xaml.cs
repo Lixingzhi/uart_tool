@@ -33,6 +33,7 @@ namespace uart_tool
         public string datastring;
 
         public bool timestramp = false;
+        public System.Timers.Timer timer;
 
         public MainWindow()
         {
@@ -61,7 +62,11 @@ namespace uart_tool
 
         private void comboBox_uartlist_DropDownClosed(object sender, EventArgs e)
         {
-            current_uart = comboBox_uartlist.SelectedValue.ToString();
+            if (comboBox_uartlist.SelectedIndex >= 0)
+            {
+                current_uart = comboBox_uartlist.SelectedValue.ToString();
+            }
+            
         }
 
         private void button_uartopen_Click(object sender, RoutedEventArgs e)
@@ -225,7 +230,8 @@ namespace uart_tool
             {
                 com.Write(buffer, 0, buffer.Length);
             }
-            else {
+            else 
+            {
                 MessageBox.Show("请打开串口");
             }
             
@@ -282,5 +288,56 @@ namespace uart_tool
         	// 在此处添加事件处理程序实现。
             timestramp = true;
         }
+
+        private void button_send_clean_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	// 在此处添加事件处理程序实现。
+            textBox_Send.Clear();
+        }
+
+        private byte[] send_buffer;
+
+        private void textBox_Send_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            // 在此处添加事件处理程序实现。
+            send_buffer = System.Text.Encoding.Default.GetBytes(textBox_Send.Text);
+        }
+
+        private void CheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	// 在此处添加事件处理程序实现。
+            timer = new System.Timers.Timer();
+            timer.Enabled = true;
+            //timer.Interval = 100; //执行间隔时间,单位为毫秒; 这里实际间隔为10分钟  
+            timer.Interval = Int32.Parse(textbox_sendInterval.Text);
+            timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
+            timer.Start();
+        }
+
+        
+
+        void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            //throw new NotImplementedException();
+
+            if (true == uart_open)
+            {
+                com.Write(send_buffer, 0, send_buffer.Length);
+            }
+            else
+            {
+                timer.Stop();
+                MessageBox.Show("请打开串口");
+                
+            }
+        }
+
+        private void CheckBox_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	// 在此处添加事件处理程序实现。
+            timer.Stop();
+        }
+
+
     }
 }

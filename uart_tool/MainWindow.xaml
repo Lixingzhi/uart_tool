@@ -1,18 +1,19 @@
-﻿<Window x:Class="uart_tool.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="500" Width="750"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="uart_tool.MainWindow"
+        Title="MainWindow" Height="600" Width="750"
         Background="#F0F0F0">
 
     <Grid>
-        <Label Content="串口选择" Height="28" HorizontalAlignment="Left" Margin="533,10,0,0" Name="label1" VerticalAlignment="Top" Width="71" />
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="533,44,0,0" Name="comboBox_uartlist" VerticalAlignment="Top" Width="183" DropDownOpened="comboBox_uartlist_DropDownOpened" DropDownClosed="comboBox_uartlist_DropDownClosed" />
-        <Label Content="波特率" Height="28" HorizontalAlignment="Left" Margin="533,73,0,0" Name="label2" VerticalAlignment="Top" Width="71" />
-        <Label Content="停止位" Height="28" HorizontalAlignment="Left" Margin="533,107,0,0" Name="label3" VerticalAlignment="Top" Width="71" />
-        <Label Content="数据位" Height="28" HorizontalAlignment="Left" Margin="533,141,0,0" Name="label4" VerticalAlignment="Top" Width="71" />
-        <Label Content="奇偶校验" Height="28" HorizontalAlignment="Left" Margin="533,175,0,0" Name="label5" VerticalAlignment="Top" Width="71" />
-        <Label Content="串口操作" Height="28" HorizontalAlignment="Left" Margin="533,209,0,0" Name="label6" VerticalAlignment="Top" Width="71" />
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="597,73,0,0" Name="comboBox_bound" VerticalAlignment="Top" Width="119" DropDownClosed="comboBox_bound_DropDownClosed">
+        <Label Content="串口选择" Height="28" HorizontalAlignment="Left" Margin="533,10,0,0" x:Name="label1" VerticalAlignment="Top" Width="71" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="533,44,0,0" x:Name="comboBox_uartlist" VerticalAlignment="Top" Width="183" DropDownOpened="comboBox_uartlist_DropDownOpened" DropDownClosed="comboBox_uartlist_DropDownClosed" />
+        <Label Content="波特率" Height="28" HorizontalAlignment="Left" Margin="533,73,0,0" x:Name="label2" VerticalAlignment="Top" Width="71" />
+        <Label Content="停止位" Height="28" HorizontalAlignment="Left" Margin="533,107,0,0" x:Name="label3" VerticalAlignment="Top" Width="71" />
+        <Label Content="数据位" Height="28" HorizontalAlignment="Left" Margin="533,141,0,0" x:Name="label4" VerticalAlignment="Top" Width="71" />
+        <Label Content="奇偶校验" Height="28" HorizontalAlignment="Left" Margin="533,175,0,0" x:Name="label5" VerticalAlignment="Top" Width="71" />
+        <Label Content="串口操作" Height="28" HorizontalAlignment="Left" Margin="533,209,0,0" x:Name="label6" VerticalAlignment="Top" Width="71" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="597,73,0,0" x:Name="comboBox_bound" VerticalAlignment="Top" Width="119" DropDownClosed="comboBox_bound_DropDownClosed">
             <ComboBoxItem Content="自定义" />
             <ComboBoxItem Content="1382400" />
             <ComboBoxItem Content="921600" />
@@ -32,35 +33,51 @@
             <ComboBoxItem Content="2400" />
             <ComboBoxItem Content="1200" />
         </ComboBox>
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="597,107,0,0" Name="comboBox_stopbits" VerticalAlignment="Top" Width="119" DropDownClosed="comboBox_stopbits_DropDownClosed">
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="597,107,0,0" x:Name="comboBox_stopbits" VerticalAlignment="Top" Width="119" DropDownClosed="comboBox_stopbits_DropDownClosed">
             <ComboBoxItem Content="1" />
             <ComboBoxItem Content="1.5" />
             <ComboBoxItem Content="2" />
         </ComboBox>
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="597,141,0,0" Name="comboBox_databits" VerticalAlignment="Top" Width="119" DropDownClosed="comboBox_databits_DropDownClosed">
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="597,141,0,0" x:Name="comboBox_databits" VerticalAlignment="Top" Width="119" DropDownClosed="comboBox_databits_DropDownClosed">
             <ComboBoxItem Content="8" />
             <ComboBoxItem Content="7" />
             <ComboBoxItem Content="6" />
             <ComboBoxItem Content="5" />
         </ComboBox>
-        <ComboBox Height="23" HorizontalAlignment="Left" Margin="597,175,0,0" Name="comboBox_check" VerticalAlignment="Top" Width="119" DropDownClosed="comboBox_check_DropDownClosed">
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="597,175,0,0" x:Name="comboBox_check" VerticalAlignment="Top" Width="119" DropDownClosed="comboBox_check_DropDownClosed">
             <ComboBoxItem Content="无" />
             <ComboBoxItem Content="奇校验" />
             <ComboBoxItem Content="偶校验" />
         </ComboBox>
-        <Button Content="打开串口" Height="23" HorizontalAlignment="Left" Margin="597,210.418,0,0" Name="button_uartopen" VerticalAlignment="Top" Width="119" Click="button_uartopen_Click" />
-        <TextBox AcceptsReturn="True"  TextWrapping="Wrap" Height="94" HorizontalAlignment="Right" Margin="0,355,437,0" Name="textBox_Send" VerticalAlignment="Top" Width="291" />
-        <Button Content="发送" Height="23" HorizontalAlignment="Left" Margin="365,392,0,0" Name="button_Send" VerticalAlignment="Top" Width="75" Click="button_Send_Click" />
-        <ScrollViewer x:Name="ScrollViewer1" Margin="0,0,216,125">
-            <TextBox x:Name="TextBox1" TextWrapping="Wrap" IsReadOnly="True" TextChanged="TextBox1_TextChanged" Background="Black" Foreground="LightGreen">
-        	</TextBox>
+        <Button Content="打开串口" Height="23" HorizontalAlignment="Left" Margin="597,210.418,0,0" x:Name="button_uartopen" VerticalAlignment="Top" Width="119" Click="button_uartopen_Click" />
+        <ScrollViewer x:Name="ScrollViewer1" Margin="0,0,216,194.652">
+            <TextBox x:Name="TextBox1" TextWrapping="Wrap" IsReadOnly="True" TextChanged="TextBox1_TextChanged" Background="Black" Foreground="LightGreen" Height="371.511"/>
         </ScrollViewer>
-        <Button x:Name="button_save" Content="保存窗口" HorizontalAlignment="Right" Margin="0,0,126,191.163" VerticalAlignment="Bottom" Width="75" Click="button_save_Click"/>
-        <Button x:Name="button_cleanreceive" Content="清除接收" HorizontalAlignment="Right" Margin="0,0,18,191.163" VerticalAlignment="Bottom" Width="75" Click="button_cleanreceive_Click" RenderTransformOrigin="0.48,-0.321"/>
-        <CheckBox x:Name="button_hexshow" Content="16进制显示" HorizontalAlignment="Right" Margin="0,0,126,171.326" VerticalAlignment="Bottom"/>
-        <CheckBox x:Name="button_rts" Content="RTS" HorizontalAlignment="Right" Margin="0,0,166.433,151.489" VerticalAlignment="Bottom"/>
-        <CheckBox x:Name="button_timestamp" Content="时间戳(以换行回车断帧)" HorizontalAlignment="Right" Margin="0,0,60.059,131.652" VerticalAlignment="Bottom" Unchecked="button_timestamp_Unchecked" Checked="button_timestamp_Checked"/>
-        <CheckBox x:Name="button_changebackgroud" Content="白底黑字" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,19.98,171.326" Checked="button_changebackgroud_Checked" Unchecked="button_changebackgroud_Unchecked"/>
-        <CheckBox x:Name="button_dtr" Content="DTR" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,44.126,151.489"/>
+        <Button x:Name="button_save" Content="保存窗口" HorizontalAlignment="Right" Margin="0,253.163,126,0" VerticalAlignment="Top" Width="75" Click="button_save_Click"/>
+        <Button x:Name="button_cleanreceive" Content="清除接收" HorizontalAlignment="Right" Margin="0,253.163,19.98,0" VerticalAlignment="Top" Width="75" Click="button_cleanreceive_Click" RenderTransformOrigin="0.48,-0.321"/>
+        <CheckBox x:Name="button_hexshow" Content="16进制显示" HorizontalAlignment="Right" Margin="0,0,121.926,253.326" VerticalAlignment="Bottom"/>
+        <CheckBox x:Name="button_rts" Content="RTS" HorizontalAlignment="Right" Margin="0,0,162.358,225.489" VerticalAlignment="Bottom"/>
+        <CheckBox x:Name="button_timestamp" Content="时间戳(以换行回车断帧)" HorizontalAlignment="Right" Margin="0,0,55.984,194.652" VerticalAlignment="Bottom" Unchecked="button_timestamp_Unchecked" Checked="button_timestamp_Checked"/>
+        <CheckBox x:Name="button_changebackgroud" Content="白底黑字" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,29.98,253.326" Checked="button_changebackgroud_Checked" Unchecked="button_changebackgroud_Unchecked"/>
+        <CheckBox x:Name="button_dtr" Content="DTR" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,54.126,225.489"/>
+        <TabControl Height="169.489" Margin="8,0,19.98,8" VerticalAlignment="Bottom">
+        	<TabItem Header="单条发送">
+        		<Grid Background="#FFE5E5E5">
+        			<ScrollViewer Margin="0,0,77.02,59">
+        				<TextBox x:Name="textBox_Send" TextWrapping="Wrap" Text="TextBox" AcceptsReturn="True" TextChanged="textBox_Send_TextChanged"/>
+        			</ScrollViewer>
+        			<Button x:Name="button_Send1" Content="发送" HorizontalAlignment="Right" Margin="0,8,8,0" VerticalAlignment="Top" Width="63" Height="19.837" Click="button_Send_Click"/>
+        			<Button x:Name="button_send_clean" Content="清除发送" HorizontalAlignment="Right" Margin="0,44.815,8,0" Width="63" Click="button_send_clean_Click" RenderTransformOrigin="0.539,1.549" VerticalAlignment="Top"/>
+        			<CheckBox Content="定时发送" HorizontalAlignment="Left" Margin="8,0,0,39.163" VerticalAlignment="Bottom" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+        			<CheckBox Content="16进制发送" HorizontalAlignment="Left" Margin="8,0,0,15.323" VerticalAlignment="Bottom"/>
+        			<CheckBox Content="发送新行" HorizontalAlignment="Left" Margin="109,0,0,15.324" VerticalAlignment="Bottom"/>
+        			<TextBlock HorizontalAlignment="Left" Margin="109,0,0,39.161" TextWrapping="Wrap" VerticalAlignment="Bottom"><Run Language="zh-cn" Text="周期："/></TextBlock>
+        			<TextBox x:Name="textbox_sendInterval" HorizontalAlignment="Left" Margin="149,0,0,35.161" TextWrapping="Wrap" Text="10&#x9;" VerticalAlignment="Bottom" Height="19.836" FontSize="10.667" Width="43.667"/>
+        		</Grid>
+        	</TabItem>
+        	<TabItem Header="帮助">
+        		<Grid Background="#FFE5E5E5"/>
+        	</TabItem>
+        </TabControl>
     </Grid>
 </Window>
